@@ -1,0 +1,3 @@
+service : {
+  qsort: (vec nat) -> (vec nat);
+}
