@@ -38,7 +38,7 @@ actor {
     // 变为可变数组  thaw<A>(xs : [A]) : [var A] 
     //let x : [var Nat] = Array.init<Nat>(size, 3); 
     //var xs : [var Int] = [var 4, 2, 6, 6,1, 5];  
-    quicksort(xs,0,size);  
+    quicksort(xs,0,size-1);  
     return Array.freeze(xs); 
     };
 };
