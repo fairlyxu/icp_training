@@ -1,44 +1,31 @@
-
-
-import Array "mo:base/Array"; 
+import Array "mo:base/Array";
+import Int "mo:base/Int";
 import Nat "mo:base/Nat";
-import Iter "mo:base/Iter";
-import Debug "mo:base/Debug";
-actor {
-  func partitionIndex(arr:[var Int], low:Nat, high:Nat): Nat{
-    var i = low;
-    var j = high;
-    var temp = arr[i];
-    while (i < j ){
-      while (i < j and arr[j] > temp and j >=1){
-        j:=j-1;
-      };
-      arr[i] :=arr[j];
-      while (i < j and arr[j] <= temp ){
-        i := i+1;
-      };
-      arr[j] :=arr[i];
+actor { 
+    func quicksort(arr:[var Int],low:Nat,high:Nat){
+        if(low>=high) return;
+        var temp = arr[low];
+        var left = low;
+        var right = high;
+        while(left < right){
+            while(arr[right] >= temp and right > left){
+                right -= 1;
+            };
+            arr[left] := arr[right];
+            while(arr[left] <= temp and left < right){
+                left += 1;
+            };
+            arr[right] := arr[left];
+        };
+        arr[right] := temp;
+        if(left >= 1) quicksort(arr,low,left-1);
+        quicksort(arr,left+1,high);
     };
-    arr[i] := temp;
-    return i;
-  } ;
 
-  func quicksort(arr:[var Int],low:Nat, high:Nat){ 
-    if(low < high){
-      var index = partitionIndex(arr,low,high);
-      quicksort(arr,low, index-1);
-      quicksort(arr,index + 1, high);
-    };
-    
-
-  }; 
-  public func qsort(arr: [Int]) : async [Int] {  
-    var xs:[var Int] = Array.thaw(arr);
-    let size = xs.size();
-    // 变为可变数组  thaw<A>(xs : [A]) : [var A] 
-    //let x : [var Nat] = Array.init<Nat>(size, 3); 
-    //var xs : [var Int] = [var 4, 2, 6, 6,1, 5];  
-    quicksort(xs,0,size-1);  
-    return Array.freeze(xs); 
+    public func qsort(arr:[Int]) : async [Int] { 
+        var tmpArr:[var Int] = Array.thaw(arr);
+        var size = tmpArr.size();
+        quicksort(tmpArr,0,size-1);
+        Array.freeze(tmpArr)
     };
 };
