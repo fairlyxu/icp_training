@@ -25,7 +25,7 @@ func partitionIndex(arr:[var Int], low:Nat, high:Nat): Nat{
 func quicksort(arr:[var Int],low:Nat, high:Nat){ 
     if(low < high){
       var index = partitionIndex(arr,low,high);
-      quicksort(arr,low, index-1);
+      if(low>=1) quicksort(arr,low, index-1);
       quicksort(arr,index + 1, high);
     };
 }; 
@@ -33,4 +33,3 @@ func quicksort(arr:[var Int],low:Nat, high:Nat){
 var xs : [var Int] = [var 4, 2, 6, 6,1, 5]; 
 quicksort(xs,0,5); 
 Debug.print(debug_show(xs));
-
