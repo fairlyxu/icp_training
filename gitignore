@@ -9,12 +9,11 @@
 
 # dfx temporary files
 .dfx/
-course2/.dfx/
-course3/.dfx/
+*/.dfx
 
 # frontend code
-node_modules/
-dist/
+*/node_modules
+*/dist
 course2/node_modules/
 course2/dist/
 course3/node_modules/
